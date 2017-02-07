@@ -6,7 +6,6 @@ var findend = false;
 var startindex = 1;
 var latestthread = 0;
 var newlatestthread = 0;
-var file = fs.createWriteStream("file.txt", {'flags': 'a'});
 
 function ParseAPage(id)
 {
@@ -36,9 +35,9 @@ function ParseAPage(id)
 					}
 					else if (threadid > latestthread)
 					{
-						file.write(threadid + "\t\t");
-						file.write(window.$(this).html().match("<img class=\"preview\" src=\"[^\"]+\"") + ">\t\t");
-						file.write(title.text() + "\r\n");
+						fs.appendFileSync("file.txt", threadid + "\t\t");
+						fs.appendFileSync("file.txt", window.$(this).html().match("<img class=\"preview\" src=\"[^\"]+\"") + ">\t\t");
+						fs.appendFileSync("file.txt", title.text() + "\r\n");
 
 						if (threadid > newlatestthread)
 						{
